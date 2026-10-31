@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 interface Props {
   onFile: (file: File) => void;
@@ -7,19 +7,8 @@ interface Props {
 
 export function Dropzone({ onFile, disabled }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
-  const depth = useRef(0); // drag enter/leave fire for child elements too
+  const depth = useRef(0);
   const [over, setOver] = useState(false);
-
-  // Guard: a drop anywhere on the page must never open the file in the browser
-  useEffect(() => {
-    const prevent = (e: DragEvent) => e.preventDefault();
-    window.addEventListener('dragover', prevent);
-    window.addEventListener('drop', prevent);
-    return () => {
-      window.removeEventListener('dragover', prevent);
-      window.removeEventListener('drop', prevent);
-    };
-  }, []);
 
   const pick = (files: FileList | null) => {
     const file = files?.[0];
@@ -54,7 +43,11 @@ export function Dropzone({ onFile, disabled }: Props) {
       }}
     >
       <p>Drag a file here, or</p>
-      <button type="button" disabled={disabled} onClick={() => inputRef.current?.click()}>
+      <button
+        type="button"
+        disabled={disabled}
+        onClick={() => inputRef.current?.click()}
+      >
         Choose a file
       </button>
       <input
