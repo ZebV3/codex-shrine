@@ -5,8 +5,7 @@
     { "path": "./tsconfig.node.json" }
   ],
   "compilerOptions": {
-    "noUncheckedIndexedAccess": true,
-
+    "noUncheckedIndexedAccess": true
   },
   "scripts": true,
   "noImplicitOverride": true
